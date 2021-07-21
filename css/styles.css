@@ -1,0 +1,60 @@
+/* common start */
+
+body {
+    font-family: 'SFProDisplay', sans-serif;
+    font-weight: normal;
+    height: 100%;
+    overflow: hidden;
+    /* background-color: #042548; */
+}
+.container__header{
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+.form__controls{
+    width: 50%;
+}
+form{
+    display: flex;
+    width: 100%;
+    height: 140px;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 5px;
+    /* border: 1px solid #da68f5; */
+}
+.container{
+    border-radius: 10px;
+    border: 1px solid #da68f5;
+    margin-top: 20px;
+}
+.form__info{
+    /* border: 1px solid #da68f5; */
+    margin-left: 5px;
+    width: 50%;
+}
+.indicator {
+    border: 0.5px solid #00446c;
+    border-radius:50%;
+    width: 25px;
+    height: 25px;
+    background-color: #00f6d2;
+}
+
+.button{
+    width: 100px;
+    height: 25px;
+}
+input{
+    color: #fff
+}
+#check{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #00f6d2;
+}
+.container__content{
+    width: 100%;
+    height: 500px;
+}

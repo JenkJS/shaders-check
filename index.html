@@ -1,0 +1,31 @@
+ <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>BEAM Applications</title>
+        <link href="./css/styles.css" rel="stylesheet">
+        <link href="./css/fonts.css" rel="stylesheet">
+        <link rel="shortcut icon" href="./appicon.svg"> 
+    </head>
+    <body>
+        <div class="container container__header">
+            <form class=" form">
+                <label for="chooseWasm">Choose shader file .wasm</label>
+                <input id="chooseWasm" type="file">
+                <button class="button" id="btn">Start</button>
+                <button class="button" id="btnGetMethod">Get Methods</button>
+                </form>
+            <div class="form form__info">
+                <ul class="form__info_date">
+                    <li><span>Connect to contract status: </span><span id="connectStatus"></spanid></li>
+                    <li><span>ID shaders: </span><span id="contactId"></span></li>
+                    <li><span>Name: </span><span id="contractName"></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container container__content" id="json"></div>
+        <script src='./scripts/big.js'></script>
+        <script type="text/javascript" src="qrc:///qtwebchannel/qwebchannel.js" async></script>
+        <script type="module" async src="/scripts/index.js"></script>
+    </body>
+        </html>
