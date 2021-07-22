@@ -3,6 +3,32 @@ const CONTRACT_ID =
   "50ab294a5ff6cedcfd74860898faf3f00967b9f1296c94f19dec24f2ab55595f";
 const REJECTED_CALL_ID = -32021;
 let array = [];
+let classArray = [];
+
+const isJson = (str) => {
+  try {
+      JSON.parse(str);
+  } catch (e) {
+      return false;
+  }
+  return true;
+}
+
+const getStruct = (l) => {
+  const btnClasses = []
+  let item = '';
+  const keys = Object.keys(l);
+  for(let key in l) {
+    let data = isJson(l[key]) ? JSON.parse(l[key]) : l[key];
+    item += typeof data !== 'object' 
+    ? `<li><span class='key'>${key}:</span>${data}</li>`
+    : `<li><span class='key'>${key}:</span><button class='btn-${key}'>+</button><ul class="list ul-${key}">${getStruct(data).item}</ul></li>`;
+    if(typeof data === 'object'){
+      classArray.push(`${key}`);
+  }
+  }
+  return { item, btnClasses };
+}
 
 class Shader {
   constructor() {
@@ -100,18 +126,19 @@ class Shader {
       if (apiCallId == "allMethods-view") {
         let shaderOut = this.parseShaderResult(apiResult);
         console.log(shaderOut.roles);
-    //     let classArray = [];
-    //     Utils.getStruct(shaderOut);
-    //     Utils.getById("container__content").innerHTML = `<ul class="res-list">${shaderOut.item}</ul>;`
-    //     //   console.log(restruct.btnClasses);
-    //     classArray.forEach((el) => {
-    //       document.querySelector(`.btn-${el}`).addEventListener("click", (e) => {
-    //           e.target.innerHTML = e.target.innerHTML === "+" ? "-" : "+";
-    //           document.querySelector(`.ul-${el}`).classList.toggle(
-    //             "visible",
-    //           );
-    //         });
-    //     });
+        classArray = [];
+        const restruct = getStruct(shaderOut);
+        Utils.getById("json").innerHTML = `<ul class="res-list">${restruct.item}</ul>;`
+        console.log(classArray);
+        classArray.forEach((el) => {
+          const current = document.querySelector(`.btn-${el}`);
+          current.addEventListener("click", (e) => {
+              e.target.innerHTML = e.target.innerHTML === "+" ? "-" : "+";
+              document.querySelector(`.ul-${el}`).classList.toggle(
+                "visible",
+              );
+            });
+        });
       }
     } catch (err) {
       return Utils.setText("json", err);
