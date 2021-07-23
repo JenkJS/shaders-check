@@ -1,4 +1,5 @@
 import Utils from "./utils.js";
+
 const CONTRACT_ID =
   "50ab294a5ff6cedcfd74860898faf3f00967b9f1296c94f19dec24f2ab55595f";
 const REJECTED_CALL_ID = -32021;
@@ -149,10 +150,23 @@ class Shader {
 Utils.onLoad(async (beamAPI2) => {
   let shader = new Shader();
   beamAPI2.api.callWalletApiResult.connect(shader.onApiResult);
+
   Utils.getById("btn").addEventListener("click", (e) => {
     shader.start();
     e.preventDefault();
   });
+
+  Utils.getById("chooseWasm").addEventListener("change", async (e) => {
+    const files = await e.target.files[0].arrayBuffer();
+    let byteArray = new Uint8Array(files);
+    let array     = Array.from(byteArray)
+    Utils.callApi("allMethods-view", "invoke_contract", {
+      contract: array,
+      create_tx: false,
+    });
+  })
+  
+
   Utils.getById("btnGetMethod").addEventListener("click", (e) => {
     Utils.callApi("allMethods-view", "invoke_contract", {
       contract: array,

@@ -66,3 +66,80 @@ input{
 .visible{
     display: block !important;
 }
+
+.chooseWasm__input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    overflow: hidden;
+    width: 0.4px;
+    height: 0.4px;
+}
+
+.chooseWasm__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 240px;
+    border: 2px dashed #150B22;
+    padding: 9px 49px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.chooseWasm__icon {
+    width: 30px;
+    height: auto;
+    margin-right: 11px;
+}
+
+.chooseWasm__label .chooseWasm__text,
+.chooseWasm__label .chooseWasm__icon path {
+    transition: .25s ease;
+}
+
+.chooseWasm__label:hover .chooseWasm__text {
+    color: #00f6d2;
+}
+
+.chooseWasm__label:hover .chooseWasm__icon path {
+    fill: #00f6d2;
+}
+
+.chooseWasm__label:hover {
+    border: 2px dashed #00f6d2;
+}
+
+/* drag and drop - "hover" */
+.chooseWasm__label.hover .chooseWasm__text {
+    color: #ffb300;
+}
+.chooseWasm__label.hover .chooseWasm__icon path {
+    fill: #ffb300;
+}
+.chooseWasm__label.hover {
+    border: 2px dashed #ffb300;
+}
+
+/* drag and drop - ошибка */
+.chooseWasm__label.error .chooseWasm__text {
+    color: #d32f2f;
+}
+.chooseWasm__label.error .chooseWasm__icon path {
+    fill: #d32f2f;
+}
+.chooseWasm__label.error {
+    border: 2px dashed #d32f2f;
+}
+
+/* drag and drop - файл(ы) успешно перетянут(ы) */
+.chooseWasm__label.drop .chooseWasm__text {
+    color: #388e3c;
+}
+.chooseWasm__label.drop .chooseWasm__icon path {
+    fill: #388e3c;
+}
+.chooseWasm__label.drop {
+    border: 2px dashed #388e3c;
+}
+
