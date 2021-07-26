@@ -5,13 +5,15 @@ export const formGenerator = (obj, Utils, contractShader) => {
 	const form = document.createElement('form');
 	const roles = Object.entries(obj.roles);
 	const radioZone = document.createElement('div');
-	const methodZone = document.createElement('div');
+	const actionZone = document.createElement('div');
+	const paramsZone = document.createElement('div');
 	const submit = document.createElement('input');
 	submit.value = 'Send Request';
 	submit.setAttribute('type', 'submit');
 	radioZone.append(submit);
 	radioZone.className = 'input__radio';
-	methodZone.className = 'input__methods';
+	actionZone.className = 'input__methods';
+	paramsZone.className = 'input__params';
 	form.addEventListener('submit', e => {
 		e.preventDefault();
 		const args = [];
@@ -27,19 +29,18 @@ export const formGenerator = (obj, Utils, contractShader) => {
 			form.querySelectorAll('.method__input'),
 			el => el.value.length && args.push(`${el.id}=${el.value}`)
 		);
-			console.log(args)
+		console.log(args);
 		Utils.callApi('allMethods-view', 'invoke_contract', {
 			create_tx: false,
 			contract: Array.from(new Uint8Array(contractShader)),
-			args: args.join(',')
+			args: args.join(','),
 		});
 	});
 
-	form.append(radioZone, methodZone);
+	form.append(radioZone, actionZone, paramsZone);
 	inputContainer.appendChild(form);
 	roles.forEach((role, i) => {
 		const methods = Object.entries(role[1]);
-		const params = [];
 		const input = document.createElement('INPUT');
 		const label = document.createElement('LABEL');
 		input.id = role[0];
@@ -49,42 +50,57 @@ export const formGenerator = (obj, Utils, contractShader) => {
 		input.dataset.role = role[0];
 		label.className = 'roles__label';
 		label.innerText = role[0];
+		label.append(input);
 		label.setAttribute('for', role[0]);
 		input.checked = i === 0;
 		radioZone.append(input, label);
-		const methodRender = methods.map(method =>
-			methodInputCreator(method, true, params)
+
+		const actionRender = methods.map(method =>
+			methodInputCreator(method, paramsZone, true)
 		);
-		const paramsRender = params.map((param) => methodInputCreator(param));
+
 		if (input.checked) {
-			methodZone.append(...methodRender, ...paramsRender);
+			actionZone.append(...actionRender);
 		}
+
+		// const paramsRender = params.map((param) => methodInputCreator(param));
+
 		input.addEventListener('change', e => {
 			if (e.target.checked) {
-				methodZone.innerHTML = '';
-				methodZone.append(...methodRender, ...paramsRender);
+				actionZone.innerHTML = '';
+				paramsZone.innerHTML = '';
+				actionZone.append(...actionRender);
 			}
 		});
 	});
 };
 
-function methodInputCreator(method, action, params) {
+function methodInputCreator(method, place, action) {
 	const input = document.createElement('INPUT');
 	const label = document.createElement('LABEL');
-	label.setAttribute('for', method[0]);
+	const innerParams = Object.entries(method[1]);
 	action && input.setAttribute('type', 'radio');
 	action && input.setAttribute('name', 'method');
-	input.checked = method[0] === 'view';
-	const innerParams = Object.entries(method[1]);
-	input.classList = `${action ? 'action' : 'method'}__input`;
+	action && label.insertAdjacentText('beforeend', method[0]);
+	label.setAttribute('for', method[0]);
 	label.classList = 'method__label';
 	input.id = method[0];
-	label.innerText = method[0];
+	input.placeholder = !action ? method[0] : '';
+	input.checked = method[0] === 'view';
+	input.classList = `${action ? 'action' : 'method'}__input`;
+
 	label.append(input);
-	if (params) {
-		innerParams.forEach(key => {
-			const coincidence = params.find(el => el[0] === key[0]);
-			if (!coincidence) params.push(key);
+	
+	if (action) {
+		const params = innerParams.map(el => methodInputCreator(el, place));
+		if (innerParams.length && input.checked) {
+			place.append(...params);
+		}
+		input.addEventListener('change', () => {
+			place.innerHTML = '';
+			if (innerParams.length) {
+				place.append(...params);
+			}
 		});
 	}
 	return label;

@@ -1,4 +1,6 @@
-export const init = (Utils, callback) => {
+import Utils from './utils.js';
+
+export const init = (callback) => {
 	const dropZone = document.querySelector('.chooseWasm__label');
 	const dropZoneText = document.querySelector('.chooseWasm__text');
 	const maxFileSize = 5000000;

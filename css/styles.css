@@ -54,41 +54,6 @@ input{
     height: 100%;
     border: 1px solid #00f6d2;
 }
-.container__content{
-    width: 100%;
-    height: 300px;
-    display: flex;
-    overflow-y: scroll;
-}
-
-.input__place{
-    width: 30%;
-}
-
-.output__place{
-    width: 70%;
-}
-
-.input__methods{
-padding-top: 20px;
-}
-
-.method__label{
-    display: flex;
-    justify-content: flex-end;
-}
-.method__label input {
-    margin-left: 20px;
-    margin-bottom: 10px;
-}
-
-.list ul{
-    display:none;
-}
-
-.visible{
-    display: block !important;
-}
 
 .chooseWasm__input {
     opacity: 0;
@@ -168,7 +133,60 @@ padding-top: 20px;
     border: 2px dashed #99ff99;
 }
 
+.container__content{
+    width: 100%;
+    height: 300px;
+    display: flex;
+    overflow-y: scroll;
+}
+
+.input__place{
+    width: 40%;
+}
+
+.output__place{
+    width: 60%;
+}
+
 .roles__label{
     color: yellow;
 }
 
+.input__methods{
+padding-top: 20px;
+}
+
+.method__label{
+    display: block;
+}
+
+/* .method__label input {
+    margin-left: 20px;
+    margin-bottom: 10px;
+} */
+
+.list ul{
+    /* display:none; */
+    color:#da68f5;
+}
+
+.list li {
+    list-style-type: none; 
+}
+
+.list button {
+    display: inline-block;
+    vertical-align: center;
+    text-align: center;
+    font-size: 10px;
+    background-color: transparent;
+    color: #da68f5;
+    border: 1px solid #da68f5;
+    width:  20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.visible{
+    display: block !important;
+}
