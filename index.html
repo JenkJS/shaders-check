@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="container container__header">
-            <form class=" form">
+            <form class="form">
                 <div class="chooseWasm__wrapper">
                 <input id="chooseWasm" class="chooseWasm__input" type="file" accept=".wasm">
                 <label class="chooseWasm__label" for="chooseWasm">
@@ -31,7 +31,10 @@
                 </ul>
             </div>
         </div>
-        <div class="container container__content" id="json"></div>
+        <div class="container container__content" id="json">
+            <div class="input__place"></div>
+            <div class="output__place"></div>
+        </div>
         <script src='./scripts/big.js'></script>
         <script type="text/javascript" src="qrc:///qtwebchannel/qwebchannel.js" async></script>
         <script type="module" async src="./scripts/index.js"></script>

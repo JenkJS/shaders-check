@@ -1,4 +1,7 @@
 import Utils from "./utils.js";
+import { formGenerator } from "./form-generator.js"
+import { init } from "./drag-n-drop.js";
+
 
 const CONTRACT_ID =
   "50ab294a5ff6cedcfd74860898faf3f00967b9f1296c94f19dec24f2ab55595f";
@@ -124,23 +127,28 @@ class Shader {
         return;
       }
 
-      if (apiCallId == "allMethods-view") {
+      if (apiCallId == "form-generator") {
         let shaderOut = this.parseShaderResult(apiResult);
-        console.log(shaderOut.roles);
-        classArray = [];
-        const restruct = getStruct(shaderOut);
-        Utils.getById("json").innerHTML = `<ul class="res-list">${restruct.item}</ul>;`
-        console.log(classArray);
-        classArray.forEach((el) => {
-          const current = document.querySelector(`.btn-${el}`);
-          current.addEventListener("click", (e) => {
-              e.target.innerHTML = e.target.innerHTML === "+" ? "-" : "+";
-              document.querySelector(`.ul-${el}`).classList.toggle(
-                "visible",
-              );
-            });
-        });
+        formGenerator(shaderOut, Utils);
       }
+
+      // if (apiCallId == "allMethods-view") {
+      //   let shaderOut = this.parseShaderResult(apiResult);
+      //   console.log(shaderOut.roles);
+      //   classArray = [];
+      //   const restruct = getStruct(shaderOut);
+      //   Utils.getById("json").innerHTML = `<ul class="res-list">${restruct.item}</ul>;`
+      //   console.log(classArray);
+      //   classArray.forEach((el) => {
+      //     const current = document.querySelector(`.btn-${el}`);
+      //     current.addEventListener("click", (e) => {
+      //         e.target.innerHTML = e.target.innerHTML === "+" ? "-" : "+";
+      //         document.querySelector(`.ul-${el}`).classList.toggle(
+      //           "visible",
+      //         );
+      //       });
+      //   });
+      // }
     } catch (err) {
       return Utils.setText("json", err);
     }
@@ -150,6 +158,8 @@ class Shader {
 Utils.onLoad(async (beamAPI2) => {
   let shader = new Shader();
   beamAPI2.api.callWalletApiResult.connect(shader.onApiResult);
+
+  init(Utils);
 
   Utils.getById("btn").addEventListener("click", (e) => {
     shader.start();

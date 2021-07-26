@@ -15,7 +15,7 @@ body {
 .form__controls{
     width: 50%;
 }
-form{
+.form{
     display: flex;
     width: 100%;
     height: 140px;
@@ -47,7 +47,7 @@ form{
     height: 25px;
 }
 input{
-    color: #fff
+    color: #00f6d2
 }
 #check{
     width: 100%;
@@ -56,7 +56,30 @@ input{
 }
 .container__content{
     width: 100%;
-    height: 500px;
+    height: 300px;
+    display: flex;
+    overflow-y: scroll;
+}
+
+.input__place{
+    width: 30%;
+}
+
+.output__place{
+    width: 70%;
+}
+
+.input__methods{
+padding-top: 20px;
+}
+
+.method__label{
+    display: flex;
+    justify-content: flex-end;
+}
+.method__label input {
+    margin-left: 20px;
+    margin-bottom: 10px;
 }
 
 .list ul{
@@ -81,16 +104,18 @@ input{
     justify-content: center;
     align-items: center;
     max-width: 240px;
-    border: 2px dashed #150B22;
+    border: 2px dashed #da68f5;
     padding: 9px 49px;
     border-radius: 6px;
     cursor: pointer;
+    color: #da68f5;
 }
 
 .chooseWasm__icon {
     width: 30px;
     height: auto;
     margin-right: 11px;
+    fill:#da68f5;
 }
 
 .chooseWasm__label .chooseWasm__text,
@@ -141,5 +166,9 @@ input{
 }
 .chooseWasm__label.drop {
     border: 2px dashed #388e3c;
+}
+
+.roles__label{
+    color: yellow;
 }
 
