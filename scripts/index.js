@@ -19,7 +19,7 @@ const isJson = str => {
 	return true;
 };
 
-const getStruct = l => {
+const getStruct = (l, prevKey) => {
 	const btnClasses = [];
 	let item = '';
   count.push(0);
@@ -37,12 +37,12 @@ const getStruct = l => {
           <span class='key'>
             ${key}:
           </span>
-          <button class='btn-${key}${JSON.stringify(l[key])}'>+</button>
-          <ul class="list ul-${key}${JSON.stringify(l[key])}">${getStruct(data).item}</ul>
+          <button class='btn-${key}${prevKey}'>+</button>
+          <ul class="list ul-${key}${prevKey}">${getStruct(data, key).item}</ul>
         </li>
             `;
 		if (typeof data === 'object') {
-			classArray.push(`${key}${JSON.stringify(l[key])}`);
+			classArray.push(`${key}${prevKey}`);
 		}
 	}
 	return { item, btnClasses };
@@ -157,19 +157,21 @@ class Shader {
 				// let shaderOut = this.parseShaderResult(apiResult);
 				console.log(apiResult);
 				classArray = [];
-				const restruct = getStruct(apiResult);
+				const restruct = getStruct(apiResult, 'data');
 				Utils.getById(
 					'output__place'
 				).innerHTML = `<ul class="list">${restruct.item}</ul>;`;
 				console.log(classArray);
-				// classArray.forEach(el => {
-				// 	const current = document.querySelector(`.btn-${el}`);
-				// 	current.addEventListener('click', e => {
-				// 		e.target.innerHTML = e.target.innerHTML === '+' ? '-' : '+';
-        //     const ul = document.querySelector(`.ul-${el}`);
-				// 		ul.classList.toggle('visible');
-				// 	});
-				// });
+				classArray.forEach(el => {
+					const current = document.querySelector(`.btn-${el}`);
+          if(current) {
+					current.addEventListener('click', e => {
+						e.target.innerHTML = e.target.innerHTML === '+' ? '-' : '+';
+            const ul = document.querySelector(`.ul-${el}`);
+						ul.classList.toggle('visible');
+					});
+        }
+				});
 			}
 		} catch (err) {
 			return Utils.setText('json', err);
