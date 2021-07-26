@@ -1,4 +1,4 @@
-export const init = Utils => {
+export const init = (Utils, callback) => {
 	const dropZone = document.querySelector('.chooseWasm__label');
 	const dropZoneText = document.querySelector('.chooseWasm__text');
 	const maxFileSize = 5000000;
@@ -18,10 +18,11 @@ export const init = Utils => {
 		this.classList.add('drop');
 		const uploadDragFiles = e.dataTransfer.files;
 		const files = await uploadDragFiles[0].arrayBuffer();
+		callback(files);
 		console.log(uploadDragFiles[0].name);
 		Utils.callApi('form-generator', 'invoke_contract', {
 			contract: Array.from(new Uint8Array(files)),
-			create_tx: false,
+			create_tx: false
 		});
 
 		if (uploadDragFiles[0].size > maxFileSize) {

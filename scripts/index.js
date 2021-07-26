@@ -43,6 +43,10 @@ class Shader {
       name: null,
     };
   }
+
+  depthCallback = (bytes) => {
+    this.pluginData.bytes = bytes
+  }
   // `./${Utils.getById('chooseWasm').files[0].name}`
   start = () => {
     Utils.download(
@@ -102,6 +106,7 @@ class Shader {
 
       if (apiCallId == "manager-view") {
         let shaderOut = this.parseShaderResult(apiResult);
+        console.log(shaderOut);
         if (shaderOut.contracts) {
           for (let idx = 0; idx < shaderOut.contracts.length; ++idx) {
             let cid = shaderOut.contracts[idx].cid;
@@ -129,26 +134,28 @@ class Shader {
 
       if (apiCallId == "form-generator") {
         let shaderOut = this.parseShaderResult(apiResult);
-        formGenerator(shaderOut, Utils);
+        console.log(shaderOut);
+        Utils.getById("output__place").innerHTML = '';
+        formGenerator(shaderOut, Utils, this.pluginData.bytes);
       }
 
-      // if (apiCallId == "allMethods-view") {
-      //   let shaderOut = this.parseShaderResult(apiResult);
-      //   console.log(shaderOut.roles);
-      //   classArray = [];
-      //   const restruct = getStruct(shaderOut);
-      //   Utils.getById("json").innerHTML = `<ul class="res-list">${restruct.item}</ul>;`
-      //   console.log(classArray);
-      //   classArray.forEach((el) => {
-      //     const current = document.querySelector(`.btn-${el}`);
-      //     current.addEventListener("click", (e) => {
-      //         e.target.innerHTML = e.target.innerHTML === "+" ? "-" : "+";
-      //         document.querySelector(`.ul-${el}`).classList.toggle(
-      //           "visible",
-      //         );
-      //       });
-      //   });
-      // }
+      if (apiCallId == "allMethods-view") {
+        // let shaderOut = this.parseShaderResult(apiResult);
+        // console.log(apiResult);
+        classArray = [];
+        const restruct = getStruct(apiResult);
+        Utils.getById("output__place").innerHTML = `<ul class="res-list">${restruct.item}</ul>;`
+        console.log(classArray);
+        classArray.forEach((el) => {
+          const current = document.querySelector(`.btn-${el}`);
+          current.addEventListener("click", (e) => {
+              e.target.innerHTML = e.target.innerHTML === "+" ? "-" : "+";
+              document.querySelector(`.ul-${el}`).classList.toggle(
+                "visible",
+              );
+            });
+        });
+      }
     } catch (err) {
       return Utils.setText("json", err);
     }
@@ -159,7 +166,7 @@ Utils.onLoad(async (beamAPI2) => {
   let shader = new Shader();
   beamAPI2.api.callWalletApiResult.connect(shader.onApiResult);
 
-  init(Utils);
+  init(Utils, shader.depthCallback);
 
   Utils.getById("btn").addEventListener("click", (e) => {
     shader.start();

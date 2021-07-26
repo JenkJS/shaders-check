@@ -159,13 +159,13 @@ padding-top: 20px;
 
 /* drag and drop - файл(ы) успешно перетянут(ы) */
 .chooseWasm__label.drop .chooseWasm__text {
-    color: #388e3c;
+    color: #99ff99;
 }
 .chooseWasm__label.drop .chooseWasm__icon path {
-    fill: #388e3c;
+    fill: #99ff99;
 }
 .chooseWasm__label.drop {
-    border: 2px dashed #388e3c;
+    border: 2px dashed #99ff99;
 }
 
 .roles__label{
