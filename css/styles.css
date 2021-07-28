@@ -25,7 +25,7 @@ body {
     /* border: 1px solid #da68f5; */
 }
 .container{
-    border-radius: 10px;
+    /* border-radius: 10px; */
     border: 1px solid #da68f5;
     margin-top: 20px;
 }
@@ -170,8 +170,17 @@ padding-top: 20px;
     color:#da68f5;
 }
 
+.list .key {
+    color:#da68f5;
+}
+
+.list .type {
+    color:#99ff99;
+}
+
 .list li {
     list-style-type: none; 
+    color:#00f6d2;
 }
 
 .list button {

@@ -23,9 +23,7 @@ const getStruct = (l, prevKey) => {
 	const btnClasses = [];
 	let item = '';
   count.push(0);
-  const ind = count.length - 1;
 	for (let key in l) {
-    count[ind] += 1;
 		const data = isJson(l[key]) ? JSON.parse(l[key]) : l[key];
 		item +=
 			typeof data !== 'object'
@@ -35,9 +33,13 @@ const getStruct = (l, prevKey) => {
         : `
         <li>
           <span class='key'>
-            ${key}:
+            ${key}: </span> <span class='type'>${Array.isArray(data)
+            ? '[...]'
+            : typeof data === 'object'
+            ? '{...}'
+            : ''}
           </span>
-          <button class='btn-${key}${prevKey}'>+</button>
+          <button class="btn-${key}${prevKey}">+</button>
           <ul class="list ul-${key}${prevKey}">${getStruct(data, key).item}</ul>
         </li>
             `;
@@ -154,13 +156,13 @@ class Shader {
 			}
 
 			if (apiCallId == 'allMethods-view') {
-				// let shaderOut = this.parseShaderResult(apiResult);
+				this.parseShaderResult(apiResult);
 				console.log(apiResult);
 				classArray = [];
 				const restruct = getStruct(apiResult, 'data');
 				Utils.getById(
 					'output__place'
-				).innerHTML = `<ul class="list">${restruct.item}</ul>;`;
+				).innerHTML = `<ul class="list">${restruct.item}</ul>`;
 				console.log(classArray);
 				classArray.forEach(el => {
 					const current = document.querySelector(`.btn-${el}`);
@@ -174,7 +176,7 @@ class Shader {
 				});
 			}
 		} catch (err) {
-			return Utils.setText('json', err);
+			return Utils.setText('output__place', err);
 		}
 	};
 }
@@ -185,26 +187,26 @@ Utils.onLoad(async beamAPI2 => {
 
 	init(shader.depthCallback);
 
-	Utils.getById('btn').addEventListener('click', e => {
-		shader.start();
-		e.preventDefault();
-	});
+	// Utils.getById('btn').addEventListener('click', e => {
+	// 	shader.start();
+	// 	e.preventDefault();
+	// });
 
-	Utils.getById('chooseWasm').addEventListener('change', async e => {
-		const files = await e.target.files[0].arrayBuffer();
-		let byteArray = new Uint8Array(files);
-		let array = Array.from(byteArray);
-		Utils.callApi('allMethods-view', 'invoke_contract', {
-			contract: array,
-			create_tx: false,
-		});
-	});
+	// Utils.getById('chooseWasm').addEventListener('change', async e => {
+	// 	const files = await e.target.files[0].arrayBuffer();
+	// 	let byteArray = new Uint8Array(files);
+	// 	let array = Array.from(byteArray);
+	// 	Utils.callApi('allMethods-view', 'invoke_contract', {
+	// 		contract: array,
+	// 		create_tx: false,
+	// 	});
+	// });
 
-	Utils.getById('btnGetMethod').addEventListener('click', e => {
-		Utils.callApi('allMethods-view', 'invoke_contract', {
-			contract: array,
-			create_tx: false,
-		});
-		e.preventDefault();
-	});
+	// Utils.getById('btnGetMethod').addEventListener('click', e => {
+	// 	Utils.callApi('allMethods-view', 'invoke_contract', {
+	// 		contract: array,
+	// 		create_tx: false,
+	// 	});
+	// 	e.preventDefault();
+	// });
 });

@@ -4,14 +4,14 @@ export const formGenerator = (obj, Utils, contractShader) => {
 
 	const form = document.createElement('form');
 	const roles = Object.entries(obj.roles);
-	const radioZone = document.createElement('div');
+	const roleZone = document.createElement('div');
 	const actionZone = document.createElement('div');
 	const paramsZone = document.createElement('div');
 	const submit = document.createElement('input');
 	submit.value = 'Send Request';
 	submit.setAttribute('type', 'submit');
-	radioZone.append(submit);
-	radioZone.className = 'input__radio';
+	roleZone.append(submit);
+	roleZone.className = 'input__radio';
 	actionZone.className = 'input__methods';
 	paramsZone.className = 'input__params';
 	form.addEventListener('submit', e => {
@@ -37,7 +37,7 @@ export const formGenerator = (obj, Utils, contractShader) => {
 		});
 	});
 
-	form.append(radioZone, actionZone, paramsZone);
+	form.append(roleZone, actionZone, paramsZone);
 	inputContainer.appendChild(form);
 	roles.forEach((role, i) => {
 		const methods = Object.entries(role[1]);
@@ -53,7 +53,7 @@ export const formGenerator = (obj, Utils, contractShader) => {
 		label.append(input);
 		label.setAttribute('for', role[0]);
 		input.checked = i === 0;
-		radioZone.append(input, label);
+		roleZone.append(input, label);
 
 		const actionRender = methods.map(method =>
 			methodInputCreator(method, paramsZone, true)
