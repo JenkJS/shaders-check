@@ -28,24 +28,24 @@ class Faucet {
 //     //         };
 //     //     }
 
-//     setError = (errmsg) => {
-//         let errorElementId = "error-common";
-//         // if (document.getElementById('faucet').classList.contains('hidden')) {
-//         //     errorElementId = "error-full";
-//         //     Utils.show('error-full-container');
-//         // } else {
-//         //     Utils.show('error-common');
-//         // }
+    // setError = (errmsg) => {
+    //     let errorElementId = "error-common";
+    //     if (document.getElementById('faucet').classList.contains('hidden')) {
+    //         errorElementId = "error-full";
+    //         Utils.show('error-full-container');
+    //     } else {
+    //         Utils.show('error-common');
+    //     }
 
-//         // Utils.setText(errorElementId, errmsg)
-//         if (this.timeout) {
-//             clearTimeout(this.timeout);   
-//         }
-//         this.timeout = setTimeout(() => {
-//             Utils.setText(errorElementId, errmsg)
-//             this.start();
-//         }, TIMEOUT)
-//     }
+    //     Utils.setText(errorElementId, errmsg)
+    //     if (this.timeout) {
+    //         clearTimeout(this.timeout);   
+    //     }
+    //     this.timeout = setTimeout(() => {
+    //         Utils.setText(errorElementId, errmsg)
+    //         this.start();
+    //     }, TIMEOUT)
+    // }
     
 //     // `${Utils.getById('chooseWasm').files[0].name}`
     start = () => {
