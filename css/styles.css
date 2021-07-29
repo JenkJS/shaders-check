@@ -155,6 +155,9 @@ input{
 .input__methods{
 padding-top: 20px;
 }
+.params__label{
+    display: block;
+}
 
 .method__label{
     display: block;
