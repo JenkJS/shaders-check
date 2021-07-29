@@ -40,6 +40,7 @@ export class Value extends BaseComponent {
       this.action = obj.currentAction;
       this.render(obj.obj, obj.dispatch);
 	};
+	
 	render = (obj, dispatch) => {
 		this.element.innerHTML = '';
 		const title = new BaseComponent('div', ['action-title']);

@@ -24,6 +24,7 @@ export default class Utils {
                         ${Utils.hex2rgba(Utils.BEAM.style.background_main_top, 0.6)} ${topColor}
                         ${Utils.hex2rgba(Utils.BEAM.style.background_main, 0.6)} ${mainColor}
                         ${Utils.hex2rgba(Utils.BEAM.style.background_main, 0.6)}`;
+                        console.log(`$(item.style.backgroundImage)`)
                     });
                 document.querySelectorAll('.container').forEach(item => {
                         (item.style.backgroundColor = Utils.hex2rgba(Utils.BEAM.style.background_popup, 1));
@@ -68,31 +69,31 @@ export default class Utils {
         Utils.BEAM.api.callWalletApi(JSON.stringify(request))
     }
 
-    static download(url, cback) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if(xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    let connectStatus = xhr.status
-                    let buffer    = xhr.response
-                    let byteArray = new Uint8Array(buffer);
-                    let array     = Array.from(byteArray)
+    // static download(url, cback) {
+    //     var xhr = new XMLHttpRequest();
+    //     xhr.onreadystatechange = function() {
+    //         if(xhr.readyState === XMLHttpRequest.DONE) {
+    //             if (xhr.status === 200) {
+    //                 let connectStatus = xhr.status
+    //                 let buffer    = xhr.response
+    //                 let byteArray = new Uint8Array(buffer);
+    //                 let array     = Array.from(byteArray)
 
-                    if (!array || !array.length) {
-                        return cback("empty shader")
-                    }
+    //                 if (!array || !array.length) {
+    //                     return cback("empty shader")
+    //                 }
                 
-                    return cback(null, array, connectStatus)
-                } else {
-                    let errMsg = ["code", xhr.status].join(" ")
-                    return cback(errMsg)
-                }
-            }
-        }
-        xhr.open('GET', url, true)
-        xhr.responseType = "arraybuffer";
-        xhr.send(null)
-    }
+    //                 return cback(null, array, connectStatus)
+    //             } else {
+    //                 let errMsg = ["code", xhr.status].join(" ")
+    //                 return cback(errMsg)
+    //             }
+    //         }
+    //     }    
+    //     xhr.open('GET', url, true)
+    //     xhr.responseType = "arraybuffer";
+    //     xhr.send(null)
+    // }
 
     static handleString(next) {
         let result = true;
@@ -125,4 +126,6 @@ export default class Utils {
 //         }
 //         return { item, btnClasses };
 //     }
+
+
 }

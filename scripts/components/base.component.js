@@ -4,7 +4,6 @@ export class BaseComponent {
     this.element.classList.add(...styles);
   }
   append = (...args) => {
-    console.log(args);
     const elements = args.map(el => el.element)
     this.element.append(...elements);
   }

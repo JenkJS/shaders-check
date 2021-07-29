@@ -67,6 +67,7 @@ export class Form extends BaseComponent {
   onSubmit = e => {
     e.preventDefault();
     const args = [];
+		Utils.getById('output__place').innerHTML = 'loading...'
     Array.prototype.find.call(
       this.role.element.querySelectorAll('.roles__input'),
       el => el.checked && args.push(`role=${el.id}`)
@@ -79,10 +80,10 @@ export class Form extends BaseComponent {
       this.params.element.querySelectorAll('.params__input'),
       el => el.value.length && args.push(`${el.id}=${el.value}`)
     );
-    console.log(Array.from(new Uint8Array(this.shader)));
+		console.log(args.join(','))
     Utils.callApi('allMethods-view', 'invoke_contract', {
       create_tx: false,
-      contract: this.shader,
+      contract:  Array.from(new Uint8Array(this.shader)),
       args: args.join(','),
     });
   };

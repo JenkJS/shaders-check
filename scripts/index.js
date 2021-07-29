@@ -1,8 +1,7 @@
 import Utils from './utils.js';
 import { formGenerator } from './form-generator.js';
 import { init } from './drag-n-drop.js';
-
-
+import { errorInfo } from './error-form-generate.js';
 const CONTRACT_ID =
 	'50ab294a5ff6cedcfd74860898faf3f00967b9f1296c94f19dec24f2ab55595f';
 const REJECTED_CALL_ID = -32021;
@@ -22,7 +21,7 @@ const isJson = str => {
 const getStruct = (l, prevKey) => {
 	const btnClasses = [];
 	let item = '';
-  count.push(0);
+	count.push(0);
 	for (let key in l) {
 		const data = isJson(l[key]) ? JSON.parse(l[key]) : l[key];
 		item +=
@@ -30,14 +29,16 @@ const getStruct = (l, prevKey) => {
 				? `
         <li><span class='key'>${key}:</span>${data}</li>
         `
-        : `
+				: `
         <li>
           <span class='key'>
-            ${key}: </span> <span class='type'>${Array.isArray(data)
-            ? '[...]'
-            : typeof data === 'object'
-            ? '{...}'
-            : ''}
+            ${key}: </span> <span class='type'>${
+						Array.isArray(data)
+							? '[...]'
+							: typeof data === 'object'
+							? '{...}'
+							: ''
+				  }
           </span>
           <button class="btn-${key}${prevKey}">+</button>
           <ul class="list ul-${key}${prevKey}">${getStruct(data, key).item}</ul>
@@ -62,35 +63,36 @@ class Shader {
 
 	depthCallback = bytes => {
 		this.pluginData.bytes = bytes;
+		console.log(Array.from(new Uint8Array(this.pluginData.bytes)));
 	};
 	// `./${Utils.getById('chooseWasm').files[0].name}`
-	start = () => {
-		Utils.download(
-			`./${Utils.getById('chooseWasm').files[0].name}`,
-			(err, bytes, connectStatus) => {
-				if (err) {
-					let errTemplate = 'Failed to load shader,';
-					let errMsg = [errTemplate, err].join(' ');
-					Utils.setText('connectStatus', errMsg);
-					return console.log(errMsg);
-				}
-				Utils.setText('connectStatus', connectStatus);
-				Utils.setText(
-					'contractName',
-					`${Utils.getById('chooseWasm').files[0].name.slice(0, -5)}`
-				);
+	// start = () => {
+	// 	Utils.download(
+	// 		`./${Utils.getById('chooseWasm').files[0].name}`,
+	// 		(err, bytes, connectStatus) => {
+	// 			if (err) {
+	// 				let errTemplate = 'Failed to load shader,';
+	// 				let errMsg = [errTemplate, err].join(' ');
+	// 				Utils.setText('connectStatus', errMsg);
+	// 				return console.log(errMsg);
+	// 			}
+	// 			Utils.setText('connectStatus', connectStatus);
+	// 			Utils.setText(
+	// 				'contractName',
+	// 				`${Utils.getById('chooseWasm').files[0].name.slice(0, -5)}`
+	// 			);
 
-				array = bytes;
-				this.pluginData.bytes = bytes;
+	// 			array = bytes;
+	// 			this.pluginData.bytes = bytes;
 
-				Utils.callApi('manager-view', 'invoke_contract', {
-					contract: bytes,
-					create_tx: false,
-					args: 'role=manager,action=view',
-				});
-			}
-		);
-	};
+	// 			Utils.callApi('manager-view', 'invoke_contract', {
+	// 				contract: bytes,
+	// 				create_tx: false,
+	// 				args: 'role=manager,action=view',
+	// 			});
+	// 		}
+	// 	);
+	// };
 	parseShaderResult = apiResult => {
 		if (typeof apiResult.output != 'string') {
 			throw 'Empty shader response';
@@ -99,7 +101,7 @@ class Shader {
 		if (shaderOut.error) {
 			throw ['Shader error: ', shaderOut.error].join('');
 		}
-
+		console.log(shaderOut);
 		return shaderOut;
 	};
 
@@ -107,10 +109,11 @@ class Shader {
 		try {
 			const apiAnswer = JSON.parse(json);
 			if (apiAnswer.error) {
+				console.log(apiAnswer.error);
 				if (apiAnswer.error.code == REJECTED_CALL_ID) {
 					return;
 				}
-				throw JSON.stringify(apiAnswer.error);
+				throw apiAnswer.error;
 			}
 
 			const apiCallId = apiAnswer.id;
@@ -132,7 +135,6 @@ class Shader {
 						}
 					}
 				}
-				console.log();
 				if (!this.pluginData.contractId) {
 					throw 'Failed to verify contract cid';
 				}
@@ -152,7 +154,7 @@ class Shader {
 				let shaderOut = this.parseShaderResult(apiResult);
 				console.log(shaderOut);
 				Utils.getById('output__place').innerHTML = '';
-				formGenerator(shaderOut, Utils, this.pluginData.bytes);
+				formGenerator(shaderOut, this.pluginData.bytes);
 			}
 
 			if (apiCallId == 'allMethods-view') {
@@ -166,17 +168,20 @@ class Shader {
 				console.log(classArray);
 				classArray.forEach(el => {
 					const current = document.querySelector(`.btn-${el}`);
-          if(current) {
-					current.addEventListener('click', e => {
-						e.target.innerHTML = e.target.innerHTML === '+' ? '-' : '+';
-            const ul = document.querySelector(`.ul-${el}`);
-						ul.classList.toggle('visible');
-					});
-        }
+					if (current) {
+						current.addEventListener('click', e => {
+							e.target.innerHTML = e.target.innerHTML === '+' ? '-' : '+';
+							const ul = document.querySelector(`.ul-${el}`);
+							ul.classList.toggle('visible');
+						});
+					}
 				});
 			}
+			Utils.setText('status__contract', 'OK');
 		} catch (err) {
-			return Utils.setText('output__place', err);
+			Utils.setText('status__contract', 'Error');
+			errorInfo(err);
+			return;
 		}
 	};
 }
