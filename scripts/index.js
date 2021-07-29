@@ -1,8 +1,6 @@
 import Utils from './utils.js';
 import { formGenerator } from './form-generator.js';
 import { init } from './drag-n-drop.js';
-
-
 const CONTRACT_ID =
 	'50ab294a5ff6cedcfd74860898faf3f00967b9f1296c94f19dec24f2ab55595f';
 const REJECTED_CALL_ID = -32021;
