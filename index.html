@@ -20,15 +20,18 @@
                     <span class="chooseWasm__text">Прикрепить файл</span>
                 </label>
                 </div>
-                <!-- <button class="button" id="btn">Start</button>
-                <button class="button" id="btnGetMethod">Get Methods</button> -->
                 </form>
             <div class="form form__info">
-                <ul class="form__info_date">
-                    <li><span>Connect to contract status: </span><span id="connectStatus"></spanid></li>
-                    <li><span>ID shaders: </span><span id="contactId"></span></li>
-                    <li><span>Name: </span><span id="contractName"></span></li>
-                </ul>
+                <form class="form__info_shaders" id=form__info_shaders>
+                    <fieldset class=fieldset_shader>
+                        <legend id="shader__status">INFO</legend>
+                        <span id='status__contract_name'>Status: <span id='status__contract' ></span></span>
+                        <span id='name__contract_name'>Name: <span id='name__contract' ></span></span>
+                        <span id='lastModified__contract_name'>LastModified: <span id='lastModified__contract' ></span></span>
+                        <!-- <span id='lastModifiedDate__contract_name'>LastModifiedDate: <span id='lastModifiedDate__contract' ></span></span> -->
+                        <span id='size__contract_name'>Size: <span id='size__contract' ></span></span>
+                    </fieldset>
+                </form>
             </div>
         </div>
         <div class="container container__content" id="json">

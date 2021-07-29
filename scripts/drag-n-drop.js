@@ -21,7 +21,7 @@ export const init = (callback) => {
 		const uploadDragFiles = e.dataTransfer.files;
 		const files = await uploadDragFiles[0].arrayBuffer();
 		callback(files);
-		console.log(uploadDragFiles[0].name);
+		console.log(uploadDragFiles);
 		Utils.callApi('form-generator', 'invoke_contract', {
 			contract: Array.from(new Uint8Array(files)),
 			create_tx: false
@@ -31,6 +31,12 @@ export const init = (callback) => {
 			dropZoneText.textContent = 'Размер превышает допустимое значение!';
 			this.addClass('error');
 			return false;
-		} else dropZoneText.textContent = uploadDragFiles[0].name;
+		} else 
+		{dropZoneText.textContent = uploadDragFiles[0].name;
+		Utils.setText('name__contract', `${uploadDragFiles[0].name.slice(0, -5)}`)
+		Utils.setText('lastModified__contract', `${uploadDragFiles[0].lastModified}`)
+		// Utils.setText('lastModifiedDate', `${uploadDragFiles[0].lastModifiedDate}`)
+		Utils.setText('size__contract', `${uploadDragFiles[0].size}`)
+		}
 	});
 };

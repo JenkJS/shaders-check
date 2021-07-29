@@ -38,10 +38,16 @@ fieldset{
 .control{
 display: flex;
 }
-.form__info{
-    /* border: 1px solid #da68f5; */
+.fieldset_shader{
+    border: 2px dashed #da68f5;
+    padding: 9px 49px;
+    border-radius: 6px;
     margin-left: 5px;
     width: 50%;
+    color: #da68f5;
+}
+.form__info_shaders{
+    display: flex;
 }
 .indicator {
     border: 0.5px solid #00446c;

@@ -1,4 +1,5 @@
 export const formGenerator = (obj, Utils, contractShader) => {
+	console.log(contractShader)
 	const inputContainer = document.querySelector('.input__place');
 	inputContainer.innerHTML = '';
 
