@@ -178,6 +178,7 @@ class Shader {
 				});
 			}
 			Utils.setText('status__contract', 'OK');
+			errorInfo(apiAnswer.error)
 		} catch (err) {
 			Utils.setText('status__contract', 'Error');
 			errorInfo(err);
