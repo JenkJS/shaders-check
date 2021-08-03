@@ -1,12 +1,13 @@
-# contract-shaders-check(work in progress)
+# Shaders-check(work in progress)
 
-## Как начать использовать
+## How to use
 
-- Сделать Fork репозитория https://github.com/JenkJS/shaders-check
-- Запустить проект на локальном сервере.
-    - Можно использовать любой сервер либо установить https://www.npmjs.com/package/serve 
-## Как установить
-   Установить Serve
+- Fork or download Shaders-check https://github.com/JenkJS/shaders-check
+- Run project on local server.
+    - You can use any local server or "serve" https://www.npmjs.com/package/serve 
+## How install serve
+You must have Node.js installed to run npm packagesВ
+   Install serve:
   ``` 
   npm -g serve 
   ```
@@ -16,35 +17,39 @@
   
   ``` 
   
-  * Запустить в терминале сервер
+  * Run serve:
   
   ``` 
   serve 
   ```  
-   Сервер запущен!
+   - The server is running
 
 <p align="center">
   <img src="./icons/runServe.png" alt="Serve run"/>
 </p>
 
-- В файле "setting.ini" который расположен в папке кошелька по адресу если у вас Windows
+- In file "setting.ini" which is in the wallet folder at the address:
+   - Windows:
 
 ```
 C:\Users\****\AppData\Local\Beam Wallet Masternet
 ```
-
-нужно добавить:
+- Add:
 
 ```
 [devapp]
-url=http://localhost:5000
+url=http://localhost:5000 // - your local server
 name=<Shaders-check>
 ```
 
-где url - адресс вашего локального сервера
+- Run the wallet in which you added [devapp] in "setting.ini" and in DAPPS Store run the application Shaders-check.
 
-- Запустить кошелек и в DAPPS Store запустить приложение Shaders-check
-- Перенести wasm файл в поле "Прикрепить файл" и получить ответ
 <p align="center">
-  <img src="./icons/shaderCheck.png" alt="Serve run"/>
+  <img src="./icons/appRun.png" alt="app run"/>
+</p>
+
+- Move to the drag and drop field ".wasm" file  and  and get the result
+
+<p align="center">
+  <img src="./icons/appShadRun.png" alt="shader run check"/>
 </p>
