@@ -1,6 +1,7 @@
 
 export const errorInfo = (err) => {
     const form = document.getElementById('form__info_shaders')
+    const fieldID = document.getElementById('error')
     const field = document.createElement('fieldset')
     const legend = document.createElement('legend')
     const codeContractName = document.createElement('span')
@@ -8,9 +9,16 @@ export const errorInfo = (err) => {
     const dataContractName = document.createElement('span')
     const dataContract = document.createElement('span')
     const msgContractName = document.createElement('span')
-    const msgContract = document.createElement('span')    
-    
-    field.classList.add('fieldset_shader')
+    const msgContract = document.createElement('span') 
+    console.log(err)   
+    if(err === undefined ) {
+        if(form.lastElementChild.classList.contains('error')){
+           form.removeChild(fieldID)
+        }
+        return
+    } 
+    field.classList.add('fieldset_shader', 'error')
+    field.id = 'error'
     codeContractName.innerHTML = "CODE: "
     codeContract.innerHTML= ` ${err.code}`
     dataContractName.innerHTML = "DATA: "
@@ -20,8 +28,8 @@ export const errorInfo = (err) => {
     msgContractName.innerHTML = "MSG: "
     msgContract.innerHTML= ` ${err.message}`
     legend.innerHTML= `ErrorInfo`
-
-
+    
+    if(!form.lastElementChild.classList.contains('error')){
     form.append(field)
     field.append(legend)
     field.append(codeContractName)
@@ -30,6 +38,16 @@ export const errorInfo = (err) => {
     dataContractName.append(dataContract)
     field.append(msgContractName)
     msgContractName.append(msgContract)
+    return}
+    else {
+        codeContractName.innerHTML = "CODE: "
+        codeContract.innerHTML= ` ${err.code}`
+        dataContractName.innerHTML = "DATA: "
+        dataContract.innerHTML= ` ${err.data}`
+        dataContractName.innerHTML = "DATA: "
+        dataContract.innerHTML= ` ${err.data}`
+        msgContractName.innerHTML = "MSG: "
+        msgContract.innerHTML= ` ${err.message}`
     return
-    
+    }
 }
