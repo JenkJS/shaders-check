@@ -7,10 +7,13 @@
     - Можно использовать любой сервер либо установить https://www.npmjs.com/package/serve 
 ## Как установить
    Установить Serve
-  ` npm -g serve `
+  ``` npm -g serve ```
   or
-  ` yarn -g serve ` \* Запустить в терминале сервер
-  ` serve `  
+  ``` yarn -g serve ``` 
+  
+  * Запустить в терминале сервер
+  
+  ``` serve ```  
    Сервер запущен!
 
 <p align="center">
