@@ -125,12 +125,13 @@ class Shader {
 
 			if (apiCallId == 'manager-view') {
 				let shaderOut = this.parseShaderResult(apiResult);
-				console.log(shaderOut);
+				console.log(shaderOut)
 				if (shaderOut.contracts) {
 					for (let idx = 0; idx < shaderOut.contracts.length; ++idx) {
 						let cid = shaderOut.contracts[idx].cid;
 						if (cid == CONTRACT_ID) {
 							this.pluginData.contractId = cid;
+							Utils.setText('contractId__contract', `${this.pluginData.contractId}`);
 							break;
 						}
 					}
@@ -138,7 +139,7 @@ class Shader {
 				if (!this.pluginData.contractId) {
 					throw 'Failed to verify contract cid';
 				}
-				console.log(shaderOut)
+				console.log(this.pluginData.contractId,);
 
 				Utils.callApi('manager-params', 'invoke_contract', {
 					create_tx: false,
@@ -147,7 +148,6 @@ class Shader {
 						this.pluginData.contractId,
 					].join(''),
 				});
-				Utils.setText('contactId', `${this.pluginData.contractId}`);
 				return;
 			}
 
