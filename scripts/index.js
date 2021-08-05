@@ -109,7 +109,7 @@ class Shader {
 		try {
 			const apiAnswer = JSON.parse(json);
 			if (apiAnswer.error) {
-				console.log(apiAnswer.error);
+				console.log(apiAnswer);
 				if (apiAnswer.error.code == REJECTED_CALL_ID) {
 					return;
 				}
@@ -138,6 +138,7 @@ class Shader {
 				if (!this.pluginData.contractId) {
 					throw 'Failed to verify contract cid';
 				}
+				console.log(shaderOut)
 
 				Utils.callApi('manager-params', 'invoke_contract', {
 					create_tx: false,
