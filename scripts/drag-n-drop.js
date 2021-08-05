@@ -55,6 +55,11 @@ export const init = (callback) => {
 			contract: Array.from(new Uint8Array(files)),
 			create_tx: false
 		});
+		Utils.callApi('manager-view', 'invoke_contract', {
+			contract: Array.from(new Uint8Array(files)),
+			create_tx: false,
+			args: 'role=manager,action=view',
+		});
 		if (uploadDragFiles[0].size > maxFileSize) {
 			dropZoneText.textContent = 'Размер превышает допустимое значение!';
 			this.addClass('error');
