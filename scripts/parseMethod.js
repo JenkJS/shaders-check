@@ -27,8 +27,7 @@ export default function parseMethod(obj, name){
                     field.append(formMethod)
                     formMethod.append(fieldMethod)
                     fieldMethod.append(NameMethod)
-                    fieldMethod.append(buttonMethod)
-                    console.log(key, value)
+                    fieldMethod.append(buttonMethod))
                     if(typeof(value === Object)){
                         Object.entries(value).forEach(([key, value])=>{
                             const label = document.createElement('label')

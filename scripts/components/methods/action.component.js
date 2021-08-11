@@ -18,11 +18,12 @@ export class ValueInput extends BaseComponent {
 
 export class ValueLabel extends BaseComponent {
 	constructor(action, dispatch, index) {
-		super('label', ['method__label']);
+		super('label', ['method__label', 'custom-radio']);
 		this.input = new ValueInput(action, dispatch, index);
-		this.element.innerText = action[0];
+		const span = new BaseComponent('span', '');
+		span.element.innerText = action[0];
 		this.element.setAttribute('for', action[0]);
-		this.append(this.input);
+		this.append(this.input, span);
 	}
 }
 

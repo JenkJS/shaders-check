@@ -18,11 +18,12 @@ export class RoleInput extends BaseComponent {
 
 export class RoleLabel extends BaseComponent {
 	constructor(role, dispatch, index) {
-		super('label', ['roles__label']);
+		super('label', ['roles__label', 'custom-radio']);
 		this.input = new RoleInput(role, dispatch, index);
-		this.element.innerText = role[0];
+		const span = new BaseComponent('span', '');
+		span.element.innerText = role[0];
 		this.element.setAttribute('for', role[0]);
-		this.append(this.input);
+		this.append(this.input, span);
 	}
 }
 

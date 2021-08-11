@@ -22,8 +22,6 @@ export const init = (callback) => {
 		const uploadDragFiles = e.dataTransfer.files;
 		const files = await uploadDragFiles[0].arrayBuffer();
 		callback(files);
-		console.log(uploadDragFiles);
-		console.log(files);
 		Utils.callApi('form-generator', 'invoke_contract', {
 			contract: Array.from(new Uint8Array(files)),
 			create_tx: false

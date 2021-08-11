@@ -36,6 +36,6 @@ export class Params extends BaseComponent {
 		title.element.innerText = 'Params: ';
 		const actions = Object.entries(obj.roles[this.role][this.action]);
 		const valuesList = actions.map((el, i) => new ParamsLabel(el, i));
-		this.append(title, ...valuesList);
+		if (valuesList.length) this.append(title, ...valuesList);
 	};
 }
