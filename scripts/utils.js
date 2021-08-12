@@ -24,7 +24,6 @@ export default class Utils {
                         ${Utils.hex2rgba(Utils.BEAM.style.background_main_top, 0.6)} ${topColor}
                         ${Utils.hex2rgba(Utils.BEAM.style.background_main, 0.6)} ${mainColor}
                         ${Utils.hex2rgba(Utils.BEAM.style.background_main, 0.6)}`;
-                        console.log(`$(item.style.backgroundImage)`)
                     });
                 document.querySelectorAll('.container').forEach(item => {
                         (item.style.backgroundColor = Utils.hex2rgba(Utils.BEAM.style.background_popup, 1));
@@ -109,7 +108,6 @@ export default class Utils {
             (floatValue > 0 && (floatValue < MIN_AMOUNT || floatValue > MAX_AMOUNT))) {
           result = false;
         }
-        console.log(floatValue)
         return result;
     }
 

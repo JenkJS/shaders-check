@@ -35,8 +35,10 @@ export class Form extends BaseComponent {
 			this.currentAction,
 			this.addObserver
 		);
+		const actionParamsWrapper = new BaseComponent('div', ['action-params']);
+		actionParamsWrapper.append(this.action, this.params);
     this.submit = new Submit();
-		this.append(this.submit, this.role, this.action, this.params);
+		this.append(this.submit, this.role, actionParamsWrapper);
     this.element.addEventListener('submit', this.onSubmit);
 	}
 
@@ -80,7 +82,6 @@ export class Form extends BaseComponent {
       this.params.element.querySelectorAll('.params__input'),
       el => el.value.length && args.push(`${el.id}=${el.value}`)
     );
-		console.log(args.join(','))
     Utils.callApi('allMethods-view', 'invoke_contract', {
       create_tx: false,
       contract:  Array.from(new Uint8Array(this.shader)),

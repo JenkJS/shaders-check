@@ -63,7 +63,6 @@ class Shader {
 
 	depthCallback = bytes => {
 		this.pluginData.bytes = bytes;
-		console.log(Array.from(new Uint8Array(this.pluginData.bytes)));
 	};
 	// `./${Utils.getById('chooseWasm').files[0].name}`
 	// start = () => {
@@ -101,7 +100,6 @@ class Shader {
 		if (shaderOut.error) {
 			throw ['Shader error: ', shaderOut.error].join('');
 		}
-		console.log(shaderOut);
 		return shaderOut;
 	};
 
@@ -109,7 +107,6 @@ class Shader {
 		try {
 			const apiAnswer = JSON.parse(json);
 			if (apiAnswer.error) {
-				console.log(apiAnswer);
 				if (apiAnswer.error.code == REJECTED_CALL_ID) {
 					return;
 				}
@@ -125,7 +122,6 @@ class Shader {
 
 			if (apiCallId == 'manager-view') {
 				let shaderOut = this.parseShaderResult(apiResult);
-				console.log(shaderOut)
 				if (shaderOut.contracts) {
 					for (let idx = 0; idx < shaderOut.contracts.length; ++idx) {
 						let cid = shaderOut.contracts[idx].cid;
@@ -139,8 +135,6 @@ class Shader {
 				if (!this.pluginData.contractId) {
 					throw 'Failed to verify contract cid';
 				}
-				console.log(this.pluginData.contractId,);
-
 				Utils.callApi('manager-params', 'invoke_contract', {
 					create_tx: false,
 					args: [
@@ -153,20 +147,17 @@ class Shader {
 
 			if (apiCallId == 'form-generator') {
 				let shaderOut = this.parseShaderResult(apiResult);
-				console.log(shaderOut);
 				Utils.getById('output__place').innerHTML = '';
 				formGenerator(shaderOut, this.pluginData.bytes);
 			}
 
 			if (apiCallId == 'allMethods-view') {
 				this.parseShaderResult(apiResult);
-				console.log(apiResult);
 				classArray = [];
 				const restruct = getStruct(apiResult, 'data');
 				Utils.getById(
 					'output__place'
 				).innerHTML = `<ul class="list">${restruct.item}</ul>`;
-				console.log(classArray);
 				classArray.forEach(el => {
 					const current = document.querySelector(`.btn-${el}`);
 					if (current) {
